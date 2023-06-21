@@ -1,0 +1,38 @@
+package idman.server.services;
+
+import idman.server.dto.request.ServerRequest;
+import idman.server.dto.responses.ServerResponse;
+import idman.server.exceptions.ServerCreationFailed;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.assertj.core.api.ClassBasedNavigableListAssert.assertThat;
+
+@SpringBootTest
+class ServiceImplTest {
+    @Autowired
+    private ServiceImpl service;
+    private ServerRequest serverRequest;
+    private ServerResponse serverResponse;
+
+    @BeforeEach
+    void setUp() throws ServerCreationFailed {
+    serverResponse = new ServerResponse();
+    serverRequest = new ServerRequest();
+    serverRequest.setName("Semicolon");
+    serverRequest.setType("Server");
+    serverRequest.setMemory("30GB");
+    serverRequest.setIpAddress("192.168.80.1");
+    service.createServer(serverRequest);
+    }
+    @Test
+    public void testThatServerCanBeCreated(){assertThat(serverResponse).isNotNull();
+    }
+}
+
+
+
+
+
